@@ -1,0 +1,31 @@
+name: Playbook-1
+hosts: all
+become: yes
+
+# Создание переменных
+vars:
+  packages:
+    - apache2
+    - htop
+    - tree
+    - rsync
+  file_src: file123
+  file_dest: /srv
+
+tasks:
+# выполнение команды ping
+  - name: Task ping
+    ping:
+
+# установка пакетов
+  - name: Install packages
+    apt:
+      pkg: "{{packages}}"
+      state: present
+
+# копирование файла
+  - name: copy file
+    copy:
+      src: "{{file_src}}"
+      dest: "{{file_dest}}"
+      mode: 0777
